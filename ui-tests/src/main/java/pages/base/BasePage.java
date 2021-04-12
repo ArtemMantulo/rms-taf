@@ -1,33 +1,48 @@
 package pages.base;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 
-import static constants.Constant.TimeoutVariables.EXPLICIT_WAIT;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
-    public WebDriver driver;
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-    }
+
+    private final SelenideElement authWidget = $x("//");
 
     /**
      * Method to navigate specific url
+     *
      * @param url
      */
     public void goToUrl(String url) {
-        driver.get(url);
+        open(url);
     }
 
     /**
-     * Wait for element is visible in DOM model
+     * Clean the text field first and then enter the text
+     *
      * @param element
-     * @return
+     * @param value
      */
-    public WebElement waitElementIsVisible(WebElement element) {
-        new WebDriverWait(driver, EXPLICIT_WAIT).until(ExpectedConditions.visibilityOf(element));
-        return element;
+    protected void clearAndType(SelenideElement element, String value) {
+        while(!element.getAttribute("value").equals("")) element.sendKeys(Keys.BACK_SPACE);
+        element.setValue(value);
+    }
+
+    /**
+     * Wait for auth widget is visible
+     */
+    public void checkIsDisplayedAuthWidget() {
+        authWidget.shouldBe(Condition.visible);
+    }
+
+    /**
+     *
+     * @param message
+     */
+    public void checkMessage(String message) {
+        $(byText(message)).shouldBe(Condition.visible);
     }
 }

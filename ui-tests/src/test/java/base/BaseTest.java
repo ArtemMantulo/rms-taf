@@ -13,8 +13,8 @@ import static common.Config.HOLD_BROWSER_OPEN;
 
 public class BaseTest {
     protected WebDriver driver = CommonActions.createDriver();
-    protected BasePage basePage = new BasePage(driver);
-    protected LoginPage loginPage = new LoginPage(driver);
+    protected BasePage basePage = new BasePage();
+    protected LoginPage loginPage = new LoginPage();
 
 
     static {

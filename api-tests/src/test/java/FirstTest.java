@@ -10,6 +10,7 @@ public class FirstTest {
     @Test
     public void xmlUpload() {
         RestAssured.baseURI = "https://gorest.co.in/public-api/users";
+        System.out.println(this.getClass().getResource("/").getPath());
         ValidatableResponse response =
                 given().
                         param("id", "112").

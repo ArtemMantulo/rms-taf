@@ -9,4 +9,9 @@ public class Constant {
     public static class Urls {
         public static final String LOGIN_PAGE_URL= "https://www.ocado.com/webshop/startWebshop.do?clkInTab=ocado";
     }
+
+    public class TestDataUserRoles {
+        public static final String BUYER = "Buyer";
+        public static final String CATEGORY_ASSISTANT = "Category Assistant";
+    }
 }

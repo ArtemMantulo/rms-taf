@@ -1,20 +1,18 @@
 package pages.login;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import pages.base.BasePage;
 
-public class LoginPage extends BasePage {
-    public LoginPage(WebDriver driver) {
-        super(driver);
-    }
+import static com.codeborne.selenide.Selenide.$x;
 
-    private final By buttonLogin = By.xpath("//a[@id='loginButton']");
-    private final WebElement buttonLoginSubmit = (WebElement) By.xpath("//div[@id='login-submit-button']");
+public class LoginPage extends BasePage {
+
+    private final SelenideElement buttonLogin = $x("//a[@id='loginButton']");
+    private final SelenideElement buttonLoginSubmit =  $x("//div[@id='login-submit-button']");
 
     public LoginPage openLoginDialog() {
-        driver.findElement(buttonLogin).click();
+        buttonLogin.shouldBe(Condition.visible).click();
         return this;
     }
 
