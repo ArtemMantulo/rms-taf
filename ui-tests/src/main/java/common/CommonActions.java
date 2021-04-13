@@ -6,10 +6,6 @@ import static common.Config.CLEAR_COOKIES;
 
 public class CommonActions {
 
-    public static CommonActions instance = null;
-
-
-
     public static void clearBrowserCookiesAndStorage() {
         if (CLEAR_COOKIES) {
             try {
