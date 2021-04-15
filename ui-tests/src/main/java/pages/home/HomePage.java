@@ -8,13 +8,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage extends BasePage {
 
-        private final SelenideElement header = $x("");
-        private final SelenideElement welcomeMessage = $x("//h2[@class='MuiTypography-root MuiTypography-h1']");
-        private final SelenideElement toolbar = $x("");
-        private final SelenideElement importXlsLink = $x("");
-        private final SelenideElement importXlsButton = $x("");
+        private final SelenideElement welcomeMessage = $x("//h2[@class='MuiTypography-root UserGreetingText MuiTypography-h1']");
+        private final SelenideElement productsTab = $x("//a[text()='Products']");
+        private final SelenideElement proposalsTab = $x("//a[text()='Proposals']");
+        private final SelenideElement importXlsLink = $x("//button[@id='importXLSText']");
+        private final SelenideElement importXlsButton = $x("//button[@id='importXLSButton']");
 
-        public HomePage checkWelcomeMessage(String role) {
+        public void checkWelcomeMessage(String role) {
             switch (role) {
                 case "Buyer" :
                     welcomeMessage.shouldHave(Condition.text("Hey, Buyer"));
@@ -23,7 +23,23 @@ public class HomePage extends BasePage {
                     welcomeMessage.shouldHave(Condition.value("Hey, Category Assistant"));
                     break;
             }
-            return this;
         }
+
+        public ProductsPage goToProductsPage() {
+            productsTab.click();
+            return new ProductsPage();
+        }
+
+        public ProposalsPage goToProposalsPage() {
+            productsTab.click();
+            return new ProposalsPage();
+        }
+
+        public boolean uploadXml(SelenideElement locator) {
+            //TODO: implement upload xls method
+            return true;
+        }
+
+
 
 }

@@ -5,6 +5,7 @@ import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class GetProductTest {
 
@@ -19,9 +20,10 @@ public class GetProductTest {
                         when().
                         get("/").
                         then().
-                        assertThat().statusCode(200);
-//                        body(matchesJsonSchemaInClasspath("schemas/response_products_positive.json"));
-        System.out.println(response.extract().response().getBody().asString());
+                        assertThat().
+//                        statusCode(200);
+                        body(matchesJsonSchemaInClasspath("schemas/response_products_positive.json"));
+//        System.out.println(response.extract().response().getBody().asString());
 
     }
 }

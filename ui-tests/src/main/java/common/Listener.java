@@ -1,7 +1,7 @@
 package common;
 
 //
-//public class Listener implements TestWatcher, BeforeAllCallback, AfterEachCallback {
+//public class Listener{
 //
 //    private static final Logger LOGGER = Logger.getLogger(Listener.class);
 //

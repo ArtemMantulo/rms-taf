@@ -9,9 +9,6 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class LoginPage extends BasePage {
 
-//    private final SelenideElement buttonLogin = $x("//a[@id='loginButton']");
-//    private final SelenideElement buttonLoginSubmit =  $x("//div[@id='login-submit-button']");
-
     private final SelenideElement radioBuyer = $x("//div[@id='SelectedRadioContainer0']//input[@id='LoginRadio']");
     private final SelenideElement radioCategoryAssistant = $x("//div[@id='SelectedRadioContainer1']//input[@id='LoginRadio']");
     private final SelenideElement loginButton = $x("//button[@id='LoginButton']");
