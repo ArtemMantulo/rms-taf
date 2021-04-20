@@ -13,8 +13,6 @@ public class BasePage {
 
     /**
      * Method to navigate specific url
-     *
-     * @param url
      */
     public void goToUrl(String url) {
         open(url);
@@ -22,9 +20,6 @@ public class BasePage {
 
     /**
      * Clean the text field first and then enter the text
-     *
-     * @param element
-     * @param value
      */
     protected void clearAndType(SelenideElement element, String value) {
         while(!element.getAttribute("value").equals("")) element.sendKeys(Keys.BACK_SPACE);
@@ -39,8 +34,7 @@ public class BasePage {
     }
 
     /**
-     *
-     * @param message
+     * Check message on the page
      */
     public void checkMessage(String message) {
         $(byText(message)).shouldBe(Condition.visible);

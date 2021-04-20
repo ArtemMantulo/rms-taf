@@ -1,27 +1,25 @@
 package common;
 
-//
-//public class Listener{
-//
-//    private static final Logger LOGGER = Logger.getLogger(Listener.class);
-//
-//
-//    @AfterTest
-//    public void afterEach() {
-//        clearBrowserCookiesAndStorage();
-//    }
-//
-//    public void testFailed(ITestListener listener, Throwable cause) {
-//        LOGGER.info("Test {} - FAILED", listener.onTestFailure(););
-//    }
-//
-//    @Attachment(value = "Attachment screenshot", type = "image/png")
-//    public byte[] attachScreenshotToAllure() {
-//        if(WebDriverRunner.hasWebDriverStarted())
-//            return ((TakeScreenshot)WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-//    }
-//
-//
-//
-//
-//}
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterTest;
+
+import java.util.logging.Logger;
+
+import static common.CommonActions.clearBrowserCookiesAndStorage;
+
+public class Listener implements ITestListener {
+
+    private static final Logger LOGGER = Logger.getLogger(String.valueOf(Listener.class));
+
+    @AfterTest
+    public void afterEach() {
+        clearBrowserCookiesAndStorage();
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        LOGGER.info("Test {} - FAILED: " + result);
+    }
+
+}
