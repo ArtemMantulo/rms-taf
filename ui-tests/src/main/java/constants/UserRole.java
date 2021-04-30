@@ -1,6 +1,6 @@
 package constants;
 
-public enum Roles {
+public enum UserRole {
         BUYER,
         CATEGORY_ASSISTANT
 }

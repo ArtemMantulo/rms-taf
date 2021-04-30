@@ -2,11 +2,11 @@ package pages.home;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import constants.Roles;
 import io.qameta.allure.Step;
 import pages.base.BasePage;
 
 import static com.codeborne.selenide.Selenide.$x;
+import static constants.UserRole.BUYER;
 
 public class HomePage extends BasePage {
 
@@ -16,9 +16,12 @@ public class HomePage extends BasePage {
         private final SelenideElement importXlsLink = $x("//button[@id='importXLSText']");
         private final SelenideElement importXlsButton = $x("//button[@id='importXLSButton']");
 
+
+
         @Step("Check welcome message for role: {0}")
-        public void checkWelcomeMessage(Roles role) {
-            switch (role) {
+        public void checkWelcomeMessage() {
+
+            switch (BUYER) {
                 case BUYER :
                     welcomeMessage.shouldHave(Condition.text("Hey, Buyer"));
                     break;

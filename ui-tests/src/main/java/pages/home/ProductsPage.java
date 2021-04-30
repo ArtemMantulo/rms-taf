@@ -10,8 +10,8 @@ public class ProductsPage extends BasePage {
     private final SelenideElement supplierFilter = $x("//a[text()='Products']");
     private final SelenideElement statusFilter = $x("//a[text()='Products']");
     private final SelenideElement tasksFilter = $x("//a[text()='Products']");
-    private final SelenideElement productsGrid = $x("//a[text()='Products']");
-    private final SelenideElement productInTheGrid = $x("//a[text()='Products']");
+    private final SelenideElement productsGrid = $x("//div[@class='MuiContainer-root MuiContainer-maxWidthLg']");
+    private final SelenideElement productInTheGrid = $x("//class='jss44'");
 
     public String verifyProductsResults() {
         return productsResults.getValue();

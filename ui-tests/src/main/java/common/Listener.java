@@ -6,15 +6,13 @@ import org.testng.annotations.AfterTest;
 
 import java.util.logging.Logger;
 
-import static common.CommonActions.clearBrowserCookiesAndStorage;
-
 public class Listener implements ITestListener {
 
     private static final Logger LOGGER = Logger.getLogger(String.valueOf(Listener.class));
 
     @AfterTest
     public void afterEach() {
-        clearBrowserCookiesAndStorage();
+        CommonActions.clearBrowserCookiesAndStorage();
     }
 
     @Override

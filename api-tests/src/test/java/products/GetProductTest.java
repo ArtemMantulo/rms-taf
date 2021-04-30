@@ -17,12 +17,12 @@ public class GetProductTest {
         RestAssured.baseURI = BASE_URI;
 
         ValidatableResponse response =
-                given().baseUri(BASE_URI).
-                        when().
-                        get(PRODUCTS_URI).
-                        then().
-                        assertThat().
-                        body(matchesJsonSchemaInClasspath("schemas/response_products_positive.json"));
+                given().baseUri(BASE_URI)
+                        .when()
+                        .get(PRODUCTS_URI)
+                        .then()
+                        .assertThat()
+                        .body(matchesJsonSchemaInClasspath("schemas/response_products_positive.json"));
 
     }
 }

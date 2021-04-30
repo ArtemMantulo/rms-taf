@@ -1,8 +1,8 @@
 package base;
 
 import common.Config;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.log4testng.Logger;
 import pages.base.BasePage;
 import pages.login.LoginPage;
 
@@ -14,13 +14,15 @@ public class BaseTest {
     protected BasePage basePage = new BasePage();
     protected LoginPage loginPage = new LoginPage();
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BaseTest.class);
+    //TODO: introduce a protected method here: protected Logger log() { return LOGGER; } and re-use it in sub-classes
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 
 
     /**
      * A static initialization block in order to clean the folders with reports and screenshots before build starts
      */
     static {
+        //TODO: move to Listener and refactor
         LOGGER.info("START TIME - " + LocalTime.now());
         LOGGER.info("Clear reports directory builds/reports/ ...");
         File allureResults = new File("allure-results");
