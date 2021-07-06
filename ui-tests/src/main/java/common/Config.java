@@ -29,7 +29,7 @@ public class Config {
         Configuration.holdBrowserOpen = HOLD_BROWSER_OPEN;
         Configuration.reportsFolder = "builds/reports/tests";
         Configuration.browser = BROWSER_NAME;
-        Configuration.timeout = 5000;                           // 5s wait
+        Configuration.timeout = 5000;
     }
 
 }

@@ -14,7 +14,6 @@ public class BaseTest {
     protected BasePage basePage = new BasePage();
     protected LoginPage loginPage = new LoginPage();
 
-    //TODO: introduce a protected method here: protected Logger log() { return LOGGER; } and re-use it in sub-classes
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 
 
@@ -22,10 +21,9 @@ public class BaseTest {
      * A static initialization block in order to clean the folders with reports and screenshots before build starts
      */
     static {
-        //TODO: move to Listener and refactor
         LOGGER.info("START TIME - " + LocalTime.now());
         LOGGER.info("Clear reports directory builds/reports/ ...");
-        File allureResults = new File("allure-results");
+        File allureResults = new File("target/allure-results");
         if(allureResults.isDirectory()) {
             for (File item : Objects.requireNonNull(allureResults.listFiles())) {
                 item.delete();
