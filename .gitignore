@@ -3,3 +3,5 @@ log/
 target/
 .idea/
 ui-tests/build/reports
+*.iml
+*.allure

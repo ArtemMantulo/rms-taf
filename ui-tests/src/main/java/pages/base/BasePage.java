@@ -2,6 +2,7 @@ package pages.base;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class BasePage {
     /**
      * Method to navigate specific url
      */
+    @Step("Open page {url}")
     public void goToUrl(String url) {
         open(url, BASIC, USER, PASS);
     }
