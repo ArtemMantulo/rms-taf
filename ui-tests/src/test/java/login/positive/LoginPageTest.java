@@ -21,6 +21,19 @@ public class LoginPageTest extends base.BaseTest {
         basePage.goToUrl(APP_URL);
         loginPage.selectRoleBuyer();
         HomePage homePage = loginPage.login();
-        homePage.checkWelcomeMessage();
+        homePage.checkWelcomeMessage("Buyer");
+        homePage.uploadXls(""); //TODO: XLS constant ??
+        homePage.checkFileUploadPopup("Success");
+    }
+
+    @Test(priority = 0, description = "Login positive test for Buyer")
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Verify welcome message for buyer role")
+    @Story("Login page functionality")
+    public void verifyWelcomeMessageForBuyer() {
+        basePage.goToUrl(APP_URL);
+        loginPage.selectUserRole("Buyer");
+        HomePage homePage = loginPage.login();
+        homePage.checkWelcomeMessage("Buyer");
     }
 }

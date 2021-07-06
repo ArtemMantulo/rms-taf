@@ -10,9 +10,9 @@ import static com.codeborne.selenide.Selenide.$x;
 public class LoginPage extends BasePage {
 
     private final SelenideElement radioBuyer =
-            $x("//div[@id='SelectedRadioContainer0']//input[@id='LoginRadio']");
+            $x("//div[@id='SelectedRadioContainer0']//input");
     private final SelenideElement radioCategoryAssistant =
-            $x("//div[@id='SelectedRadioContainer1']//input[@id='LoginRadio']");
+            $x("//div[@id='SelectedRadioContainer1']//input");
     private final SelenideElement loginButton = $x("//button[@id='LoginButton']");
 
 
@@ -21,8 +21,23 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginPage selectRoleCategoryAssistant() {
-        radioCategoryAssistant.click();
+    /**
+     * Select role BUYER or CATEGORY_ASSISTANT
+     * @param role
+     * @return this
+     */
+    public LoginPage selectUserRole(String role) {
+
+        switch (role) {
+            case "Buyer" :  {
+                radioBuyer.click();
+            }
+            break;
+            case "Category Assistant" :  {
+                radioCategoryAssistant.click();
+            }
+            break;
+        }
         return this;
     }
 
