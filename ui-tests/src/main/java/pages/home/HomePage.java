@@ -2,6 +2,7 @@ package pages.home;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import constants.UserRole;
 import io.qameta.allure.Step;
 import pages.base.BasePage;
 
@@ -23,13 +24,12 @@ public class HomePage extends BasePage {
                 $x("//div[@class='NotificationContent']/div[@class='TitleAndButton']");
 
         @Step("Check welcome message for role: {userRole}")
-        public void checkWelcomeMessage(String userRole) {
-
+        public void checkWelcomeMessage(UserRole userRole) {
             switch (userRole) {
-                case "Buyer" :
+                case BUYER :
                     welcomeMessage.shouldHave(Condition.text("Hey, Buyer"));
                     break;
-                case "Category Assistant" :
+                case CATEGORY_ASSISTANT :
                     welcomeMessage.shouldHave(Condition.value("Hey, Category Assistant"));
                     break;
             }

@@ -11,17 +11,15 @@ import pages.home.HomePage;
 import static constants.Urls.APP_URL;
 
 @Listeners({ TestListenerAdapter.class, Listener.class})
-@Epic("Login")
-@Feature("Test login page")
-public class LoginPageTest extends base.BaseTest {
-    @Test(priority = 0, description = "Login positive test for Buyer")
-    @Severity(SeverityLevel.BLOCKER)
-    @Description("Verify welcome message for buyer role")
-    @Story("Login page functionality")
+@Feature("User login")
+public class UserLoginTest extends base.BaseTest {
+
+    @Test(description = "Login test for Buyer role", groups = "Smoke")
+    @Severity(SeverityLevel.CRITICAL)
     public void verifyWelcomeMessageForBuyer() {
         basePage.goToUrl(APP_URL);
-        loginPage.selectUserRole(UserRole.BUYER.toString());
+        loginPage.selectUserRole(UserRole.BUYER);
         HomePage homePage = loginPage.login();
-        homePage.checkWelcomeMessage(UserRole.BUYER.toString());
+        homePage.checkWelcomeMessage(UserRole.CATEGORY_ASSISTANT);
     }
 }

@@ -3,7 +3,7 @@
 <suite name="UI Regression tests">
     <test name="Regression">
         <classes>
-            <class name="login.LoginPageTest"/>
+            <class name="login.UserLoginTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

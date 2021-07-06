@@ -1,23 +1,20 @@
 package products;
 
 import io.qameta.allure.Allure;
-import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 
+import static api.constants.Config.*;
 import static io.restassured.RestAssured.given;
 
-public class GetProductTest {
+public class GetProductsTest {
 
-    private final String BASE_URI = "http://k8s-kubesyst-albingre-947437f746-1930370641.us-east-1.elb.amazonaws.com/api";
-    private final String BASE_PATH = "/products";
-    private final String AUTH_USER = "user";
-    private final String AUTH_PASSWORD = "agh-equ0DuDei6p";
-
-    @Test(priority = 0, description = "Get product")
-    @Description("Get product")
-    public void getProduct() {
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Get list of available products", groups = "Smoke")
+    public void getProductsTest() {
         RestAssured.baseURI = BASE_URI;
 
         ValidatableResponse response =

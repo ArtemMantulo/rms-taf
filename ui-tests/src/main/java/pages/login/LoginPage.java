@@ -2,6 +2,7 @@ package pages.login;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import constants.UserRole;
 import io.qameta.allure.Step;
 import pages.base.BasePage;
 import pages.home.HomePage;
@@ -22,14 +23,13 @@ public class LoginPage extends BasePage {
      * @return this
      */
     @Step("Select user {role}")
-    public LoginPage selectUserRole(String role) {
-
+    public LoginPage selectUserRole(UserRole role) {
         switch (role) {
-            case "BUYER" :  {
+            case BUYER :  {
                 radioBuyer.click();
             }
             break;
-            case "CATEGORY_ASSISTANT" :  {
+            case CATEGORY_ASSISTANT :  {
                 radioCategoryAssistant.click();
             }
             break;

@@ -3,7 +3,7 @@
 <suite name="API Regression suite">
     <test name="Products API">
         <classes>
-            <class name="products.GetProductTest"/>
+            <class name="products.GetProductsTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->
