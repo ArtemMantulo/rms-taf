@@ -1,6 +1,7 @@
-package login.positive;
+package login;
 
 import common.Listener;
+import constants.UserRole;
 import io.qameta.allure.*;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.Listeners;
@@ -15,25 +16,12 @@ import static constants.Urls.APP_URL;
 public class LoginPageTest extends base.BaseTest {
     @Test(priority = 0, description = "Login positive test for Buyer")
     @Severity(SeverityLevel.BLOCKER)
-    @Description("Login test for buyer role")
-    @Story("Login page functionality")
-    public void openLoginPage() {
-        basePage.goToUrl(APP_URL);
-        loginPage.selectRoleBuyer();
-        HomePage homePage = loginPage.login();
-        homePage.checkWelcomeMessage("Buyer");
-        homePage.uploadXls(""); //TODO: XLS constant ??
-        homePage.checkFileUploadPopup("Success");
-    }
-
-    @Test(priority = 0, description = "Login positive test for Buyer")
-    @Severity(SeverityLevel.BLOCKER)
     @Description("Verify welcome message for buyer role")
     @Story("Login page functionality")
     public void verifyWelcomeMessageForBuyer() {
         basePage.goToUrl(APP_URL);
-        loginPage.selectUserRole("Buyer");
+        loginPage.selectUserRole(UserRole.BUYER.toString());
         HomePage homePage = loginPage.login();
-        homePage.checkWelcomeMessage("Buyer");
+        homePage.checkWelcomeMessage(UserRole.BUYER.toString());
     }
 }

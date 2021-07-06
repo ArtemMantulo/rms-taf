@@ -13,7 +13,4 @@ public class ProposalsPage extends BasePage {
     private final SelenideElement tasksFilter = $x("//a[text()='Products']");
     private final SelenideElement productsGrid = $x("//a[text()='Products']");
     private final SelenideElement productInTheGrid = $x("//a[text()='Products']");
-
-
-
 }

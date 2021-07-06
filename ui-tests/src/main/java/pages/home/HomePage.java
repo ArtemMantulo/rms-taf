@@ -9,7 +9,6 @@ import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static constants.UserRole.BUYER;
 
 public class HomePage extends BasePage {
 
@@ -23,7 +22,7 @@ public class HomePage extends BasePage {
         private final SelenideElement successUploadedPopup =
                 $x("//div[@class='NotificationContent']/div[@class='TitleAndButton']");
 
-        @Step("Check welcome message for role: {0}")
+        @Step("Check welcome message for role: {userRole}")
         public void checkWelcomeMessage(String userRole) {
 
             switch (userRole) {
@@ -51,12 +50,8 @@ public class HomePage extends BasePage {
         @Step("Upload XLS file")
         public void uploadXls(String filePath) {
             importXlsButton.click();
-//            importXlsPopup.shouldBe(Condition.visible);
-
-            //TODO: wrap into try-catch
             File file = new File(filePath);
             $(importXlsPopup).uploadFile(file);
-
         }
 
     /**
@@ -64,16 +59,16 @@ public class HomePage extends BasePage {
      *
      * @param expectedCondition
      */
-    public void checkFileUploadPopup(String expectedCondition)
-        {
-            switch (expectedCondition) {
-                case "Success" :
-                    $(successUploadedPopup).shouldHave(Condition.text("Success"));
-                    break;
-                case "Failed" :
-                    $(successUploadedPopup).shouldBe(Condition.visible).shouldHave(Condition.text("Oops! Something went wrong"));
-                    break;
-            }
+    public void checkFileUploadPopup(String expectedCondition) {
+        switch (expectedCondition) {
+            case "Success":
+                $(successUploadedPopup).shouldHave(Condition.text("Success"));
+                break;
+            case "Failed":
+                $(successUploadedPopup).shouldBe(Condition.visible).
+                        shouldHave(Condition.text("Oops! Something went wrong"));
+                break;
         }
+    }
 
 }
