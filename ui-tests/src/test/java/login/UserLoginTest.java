@@ -1,9 +1,13 @@
 package login;
 
+import com.codeborne.selenide.Selenide;
 import common.Listener;
 import constants.UserRole;
-import io.qameta.allure.*;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.TestListenerAdapter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.home.HomePage;
@@ -20,6 +24,11 @@ public class UserLoginTest extends base.BaseTest {
         basePage.goToUrl(APP_URL);
         loginPage.selectUserRole(UserRole.BUYER);
         HomePage homePage = loginPage.login();
-        homePage.checkWelcomeMessage(UserRole.CATEGORY_ASSISTANT);
+        homePage.checkWelcomeMessage(UserRole.BUYER);
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        Selenide.closeWebDriver();
     }
 }
