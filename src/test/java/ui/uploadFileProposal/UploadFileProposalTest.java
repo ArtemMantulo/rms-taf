@@ -11,8 +11,8 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ui.base.BaseTest;
 import ui.common.Listener;
+import ui.common.UserActions;
 import ui.constants.UserRole;
-import ui.pages.home.HomePage;
 
 import static ui.constants.Urls.*;
 
@@ -31,21 +31,21 @@ public class UploadFileProposalTest extends BaseTest {
     @Test(description = "Check success file upload", groups = "Smoke", dataProvider = "FilesToUploadDataProvider")
     @Severity(SeverityLevel.CRITICAL)
     public void uploadProposalFile(String filePath, String fileType) {
-        basePage.goToUrl(APP_URL);
-        loginPage.selectUserRole(UserRole.BUYER);
-        HomePage homePage = loginPage.login();
-        homePage.uploadXls(filePath);
-        homePage.checkFileUploadPopup("Success");
+        UserActions.openMainPage()
+                .selectUserRole(UserRole.BUYER)
+                .login()
+                .uploadXls(filePath)
+                .checkFileUploadPopup("Success");
     }
 
     @Test(description = "Check validation for .csv format", groups = "Smoke")
     @Severity(SeverityLevel.CRITICAL)
     public void uploadCsvFile() {
-        basePage.goToUrl(APP_URL);
-        loginPage.selectUserRole(UserRole.BUYER);
-        HomePage homePage = loginPage.login();
-        homePage.uploadXls(UPLOAD_CSV_FILE_PATH);
-        homePage.checkFileUploadPopup("Failed");
+        UserActions.openMainPage()
+                .selectUserRole(UserRole.BUYER)
+                .login()
+                .uploadXls(UPLOAD_CSV_FILE_PATH)
+                .checkFileUploadPopup("Failed");
     }
 
     @AfterMethod

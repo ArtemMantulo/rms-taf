@@ -1,5 +1,6 @@
 package ui.base;
 
+import framework.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.common.Config;
@@ -11,9 +12,6 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class BaseTest {
-    protected BasePage basePage = new BasePage();
-    protected LoginPage loginPage = new LoginPage();
-
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 
 

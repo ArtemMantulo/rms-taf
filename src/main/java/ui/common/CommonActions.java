@@ -1,17 +1,22 @@
 package ui.common;
 
 import com.codeborne.selenide.Selenide;
+import framework.ConfigProvider;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
+import ui.pages.login.LoginPage;
 
 import java.util.logging.Logger;
 
+import static com.codeborne.selenide.AuthenticationType.BASIC;
 import static ui.common.Config.CLEAR_COOKIES;
 import static ui.common.Config.HOLD_BROWSER_OPEN;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CommonActions {
 
     private static final Logger LOGGER = Logger.getLogger(String.valueOf(Listener.class));
+
 
     @AfterTest
     public static void clearBrowserCookiesAndStorage() {

@@ -7,11 +7,8 @@ import org.openqa.selenium.Keys;
 
 import java.util.Objects;
 
-import static com.codeborne.selenide.AuthenticationType.BASIC;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static ui.constants.Auth.PASS;
-import static ui.constants.Auth.USER;
 
 public class BasePage {
 
@@ -22,7 +19,7 @@ public class BasePage {
      */
     @Step("Open page {url}")
     public void goToUrl(String url) {
-        open(url, BASIC, USER, PASS);
+        open(url);
     }
 
     /**

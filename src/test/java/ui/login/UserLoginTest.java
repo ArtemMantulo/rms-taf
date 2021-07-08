@@ -10,10 +10,8 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ui.base.BaseTest;
 import ui.common.Listener;
+import ui.common.UserActions;
 import ui.constants.UserRole;
-import ui.pages.home.HomePage;
-
-import static ui.constants.Urls.APP_URL;
 
 @Listeners({TestListenerAdapter.class, Listener.class})
 @Feature("User login")
@@ -22,10 +20,10 @@ public class UserLoginTest extends BaseTest {
     @Test(description = "Login test for Buyer role", groups = "Smoke")
     @Severity(SeverityLevel.CRITICAL)
     public void verifyWelcomeMessageForBuyer() {
-        basePage.goToUrl(APP_URL);
-        loginPage.selectUserRole(UserRole.BUYER);
-        HomePage homePage = loginPage.login();
-        homePage.checkWelcomeMessage(UserRole.BUYER);
+        UserActions.openMainPage()
+                .selectUserRole(UserRole.BUYER)
+                .login()
+                .checkWelcomeMessage(UserRole.BUYER);
     }
 
     @AfterMethod
