@@ -28,7 +28,7 @@ public class UploadFileProposalTest extends base.BaseTest {
         };
     }
 
-    @Test(description = "Upload proposal file:", groups = "Smoke", dataProvider = "FilesToUploadDataProvider")
+    @Test(description = "Check success file upload", groups = "Smoke", dataProvider = "FilesToUploadDataProvider")
     @Severity(SeverityLevel.CRITICAL)
     public void uploadProposalFile(String filePath, String fileType) {
         basePage.goToUrl(APP_URL);
@@ -38,7 +38,7 @@ public class UploadFileProposalTest extends base.BaseTest {
         homePage.checkFileUploadPopup("Success");
     }
 
-    @Test(description = "Upload file proposal: .csv format", groups = "Smoke")
+    @Test(description = "Check validation for .csv format", groups = "Smoke")
     @Severity(SeverityLevel.CRITICAL)
     public void uploadCsvFile() {
         basePage.goToUrl(APP_URL);
