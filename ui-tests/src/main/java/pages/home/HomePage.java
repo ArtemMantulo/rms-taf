@@ -47,18 +47,15 @@ public class HomePage extends BasePage {
             return new ProposalsPage();
         }
 
-        @Step("Upload XLS file")
-        public void uploadXls(String filePath) {
+        @Step("Upload file proposal")
+        public HomePage uploadXls(String filePath) {
             importXlsButton.click();
             File file = new File(filePath);
             $(importXlsPopup).uploadFile(file);
+            return this;
         }
 
-    /**
-     * Verify popup when .xls file uploaded
-     *
-     * @param expectedCondition
-     */
+    @Step("Verify popup when file proposal is uploaded")
     public void checkFileUploadPopup(String expectedCondition) {
         switch (expectedCondition) {
             case "Success":

@@ -4,6 +4,7 @@
     <test name="Regression">
         <classes>
             <class name="login.UserLoginTest"/>
+            <class name="uploadFileProposal.UploadFileProposalTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->
