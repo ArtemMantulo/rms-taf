@@ -3,7 +3,7 @@ package ui.pages.home;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import ui.constants.UserRole;
+import ui.models.UserRole;
 import ui.pages.base.BasePage;
 
 import java.io.File;
@@ -25,14 +25,7 @@ public class HomePage extends BasePage {
 
     @Step("Check welcome message for role: {userRole}")
     public void checkWelcomeMessage(UserRole userRole) {
-        switch (userRole) {
-            case BUYER:
-                welcomeMessage.shouldHave(Condition.text("Hey, Buyer"));
-                break;
-            case CATEGORY_ASSISTANT:
-                welcomeMessage.shouldHave(Condition.value("Hey, Category Assistant"));
-                break;
-        }
+        welcomeMessage.shouldHave(Condition.text("Hey, " + userRole.getRole()));
     }
 
     @Step("Open Products Tab")
