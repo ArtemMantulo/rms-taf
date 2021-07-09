@@ -1,6 +1,5 @@
 package ui.common;
 
-import framework.ConfigProvider;
 import io.qameta.allure.Step;
 import ui.pages.login.LoginPage;
 
@@ -11,8 +10,7 @@ public class UserActions {
 
     @Step("Open main website page")
     public static LoginPage openMainPage() {
-        ConfigProvider config = new ConfigProvider();
-        open(config.getPublicSiteUrl(), BASIC, config.getUser(), config.getPassword());
+        open(Config.properties.getPublicSiteUrl(), BASIC, Config.properties.getUser(), Config.properties.getPassword());
         return new LoginPage();
     }
 

@@ -1,6 +1,7 @@
 package ui.common;
 
 import com.codeborne.selenide.Configuration;
+import framework.ConfigProvider;
 
 public class Config {
     /**
@@ -25,11 +26,14 @@ public class Config {
      */
     public static final boolean CLEAR_REPORTS_DIR = true;
 
+    public static ConfigProvider properties;
+
     static {
         Configuration.holdBrowserOpen = HOLD_BROWSER_OPEN;
         Configuration.reportsFolder = "builds/reports/tests";
         Configuration.browser = BROWSER_NAME;
         Configuration.timeout = 5000;
+        properties = new ConfigProvider();
     }
 
 }
