@@ -3,7 +3,7 @@ package ui.pages.login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import ui.constants.UserRole;
+import ui.models.UserRole;
 import ui.pages.base.BasePage;
 import ui.pages.home.HomePage;
 

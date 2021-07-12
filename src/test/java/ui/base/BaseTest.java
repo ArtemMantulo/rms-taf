@@ -1,8 +1,10 @@
 package ui.base;
 
+import com.codeborne.selenide.Selenide;
 import framework.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
 import ui.common.Config;
 import ui.pages.base.BasePage;
 import ui.pages.login.LoginPage;
@@ -14,6 +16,10 @@ import java.util.Objects;
 public class BaseTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 
+    @AfterMethod
+    public void tearDown() {
+        Selenide.closeWebDriver();
+    }
 
     /**
      * A static initialization block in order to clean the folders with reports and screenshots before build starts

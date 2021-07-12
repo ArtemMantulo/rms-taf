@@ -6,29 +6,31 @@ import io.qameta.allure.SeverityLevel;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
+import ui.common.Config;
 
-import static api.Config.*;
 import static io.restassured.RestAssured.given;
 
 public class GetProductsTest {
 
+    public static final String PRODUCTS = "/products";
+
     @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Get list of available products", groups = "Smoke")
+    @Test(description = "Get list of available products", groups = {"Smoke", "api"})
     public void getProductsTest() {
-        RestAssured.baseURI = BASE_URI;
+        RestAssured.baseURI = Config.properties.getPublicSiteUrl() + "/api";
 
         ValidatableResponse response =
-                given().baseUri(BASE_URI).auth()
-                        .basic(AUTH_USER, AUTH_PASSWORD)
-                        .queryParam("supplierName","all")
+                given().auth()
+                        .basic(Config.properties.getUser(), Config.properties.getPassword())
+                        .queryParam("supplierName", "all")
                         .queryParam("status", "all")
                         .queryParam("nonCompletedTasks", "all")
                         .when()
-                        .get(BASE_PATH)
+                        .get(PRODUCTS)
                         .then()
                         .assertThat().statusCode(200).contentType("application/json");
 
-        int log  = response.log().body().extract().statusCode();
+        int log = response.log().body().extract().statusCode();
         Allure.addAttachment("Console log: ", String.valueOf(log));
     }
 }
