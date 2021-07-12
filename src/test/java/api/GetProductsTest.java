@@ -12,6 +12,8 @@ import static io.restassured.RestAssured.given;
 
 public class GetProductsTest {
 
+    public static final String PRODUCTS = "/products";
+
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Get list of available products", groups = {"Smoke", "api"})
     public void getProductsTest() {
@@ -24,7 +26,7 @@ public class GetProductsTest {
                         .queryParam("status", "all")
                         .queryParam("nonCompletedTasks", "all")
                         .when()
-                        .get()
+                        .get(PRODUCTS)
                         .then()
                         .assertThat().statusCode(200).contentType("application/json");
 
