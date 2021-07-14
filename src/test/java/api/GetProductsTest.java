@@ -7,12 +7,14 @@ import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
 import ui.common.Config;
+import static framework.Helpers.validateResponse;
 
 import static io.restassured.RestAssured.given;
 
 public class GetProductsTest {
 
     public static final String PRODUCTS = "/products";
+    public static final String SCHEMA_TEMPLATE_GET_PRODUCTS = "schemas/products/getProducts.json";
 
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Get list of available products", groups = {"Smoke", "api"})
@@ -28,7 +30,8 @@ public class GetProductsTest {
                         .when()
                         .get(PRODUCTS)
                         .then()
-                        .assertThat().statusCode(200).contentType("application/json");
+                        .assertThat().contentType("application/json");
+        validateResponse(response, SCHEMA_TEMPLATE_GET_PRODUCTS);
 
         int log = response.log().body().extract().statusCode();
         Allure.addAttachment("Console log: ", String.valueOf(log));
