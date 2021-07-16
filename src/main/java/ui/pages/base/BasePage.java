@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
-    private final SelenideElement authWidget = $x("//");
+    private final static String AUTH_WIDGET_POPUP = "//";
 
     /**
      * Method to navigate specific url
@@ -37,7 +37,7 @@ public class BasePage {
      * Wait for auth widget is visible
      */
     public void checkIsDisplayedAuthWidget() {
-        authWidget.shouldBe(Condition.visible);
+        $x(AUTH_WIDGET_POPUP).shouldBe(Condition.visible);
     }
 
     /**

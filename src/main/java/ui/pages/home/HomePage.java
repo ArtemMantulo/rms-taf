@@ -4,9 +4,7 @@ import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import ui.models.UserRole;
 import ui.pages.base.BasePage;
-
 import java.io.File;
-
 import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage extends BasePage {
