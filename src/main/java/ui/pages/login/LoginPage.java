@@ -1,7 +1,6 @@
 package ui.pages.login;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import ui.models.UserRole;
 import ui.pages.base.BasePage;
@@ -9,14 +8,11 @@ import ui.pages.home.HomePage;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-
 public class LoginPage extends BasePage {
 
-    private final SelenideElement radioBuyer =
-            $x("//div[@id='SelectedRadioContainer0']//input");
-    private final SelenideElement radioCategoryAssistant =
-            $x("//div[@id='SelectedRadioContainer1']//input");
-    private final SelenideElement loginButton = $x("//button[@id='LoginButton']");
+    private final static String LOGIN_BUTTON_ID = "LoginButton";
+    private final static String RADIO_BUTTON_BUYER = "//div[@id='SelectedRadioContainer0']//input";
+    private final static String RADIO_BUTTON_CATEGORY_ASSISTANT = "//div[@id='SelectedRadioContainer1']//input";
 
     /**
      * Select role BUYER or CATEGORY_ASSISTANT
@@ -27,11 +23,11 @@ public class LoginPage extends BasePage {
     public LoginPage selectUserRole(UserRole role) {
         switch (role) {
             case BUYER :  {
-                radioBuyer.click();
+                $x(RADIO_BUTTON_BUYER).click();
             }
             break;
             case CATEGORY_ASSISTANT :  {
-                radioCategoryAssistant.click();
+                $x(RADIO_BUTTON_CATEGORY_ASSISTANT).click();
             }
             break;
         }
@@ -40,7 +36,7 @@ public class LoginPage extends BasePage {
 
     @Step("Click login button")
     public HomePage login() {
-        loginButton.shouldBe(Condition.visible).click();
+        $id(LOGIN_BUTTON_ID).shouldBe(Condition.visible).click();
         return new HomePage();
     }
 
