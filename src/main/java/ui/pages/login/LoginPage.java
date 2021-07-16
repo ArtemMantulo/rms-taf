@@ -23,7 +23,7 @@ public class LoginPage extends BasePage {
      * @param role
      * @return this
      */
-    @Step("Select user {role}")
+    @Step("STEP: Select user {role}")
     public LoginPage selectUserRole(UserRole role) {
         switch (role) {
             case BUYER :  {
@@ -38,7 +38,7 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("Click login button")
+    @Step("STEP: Click login button")
     public HomePage login() {
         loginButton.shouldBe(Condition.visible).click();
         return new HomePage();

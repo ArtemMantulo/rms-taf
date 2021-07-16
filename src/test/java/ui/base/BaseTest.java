@@ -1,19 +1,18 @@
 package ui.base;
 
 import com.codeborne.selenide.Selenide;
-import framework.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
+import ui.BaseSettings;
 import ui.common.Config;
-import ui.pages.base.BasePage;
-import ui.pages.login.LoginPage;
+
 
 import java.io.File;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class BaseTest {
+public class BaseTest extends BaseSettings {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 
     @AfterMethod

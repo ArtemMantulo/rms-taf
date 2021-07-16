@@ -19,5 +19,4 @@ public class UserLoginTest extends BaseTest {
                 .login()
                 .checkWelcomeMessage(UserRole.BUYER);
     }
-
 }

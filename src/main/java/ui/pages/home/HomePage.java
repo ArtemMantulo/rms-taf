@@ -23,24 +23,24 @@ public class HomePage extends BasePage {
     private final SelenideElement successUploadedPopup =
             $x("//div[@class='NotificationContent']/div[@class='TitleAndButton']");
 
-    @Step("Check welcome message for role: {userRole}")
+    @Step("STEP: Check welcome message for role: {userRole}")
     public void checkWelcomeMessage(UserRole userRole) {
         welcomeMessage.shouldHave(Condition.text("Hey, " + userRole.getRole()));
     }
 
-    @Step("Open Products Tab")
+    @Step("STEP: Open Products Tab")
     public ProductsPage goToProductsPage() {
         productsTab.click();
         return new ProductsPage();
     }
 
-    @Step("Open Proposals Tab")
+    @Step("STEP: Open Proposals Tab")
     public ProposalsPage goToProposalsPage() {
         productsTab.click();
         return new ProposalsPage();
     }
 
-    @Step("Upload file proposal")
+    @Step("STEP: Upload file proposal")
     public HomePage uploadXls(String filePath) {
         importXlsButton.click();
         File file = new File(filePath);
@@ -48,7 +48,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    @Step("Verify popup when file proposal is uploaded")
+    @Step("STEP: Verify popup when file proposal is uploaded")
     public void checkFileUploadPopup(String expectedCondition) {
         switch (expectedCondition) {
             case "Success":

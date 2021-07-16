@@ -18,11 +18,15 @@ public class ConfigProvider {
     private final String publicSiteUrl;
     private final String user;
     private final String password;
+    private final String baseTimeout;
+    private final String step_logger_enable;
 
     public ConfigProvider() {
         publicSiteUrl = getConfigParameter("main.url");
         user = getConfigParameter("main.user");
         password = getConfigParameter("main.user.password");
+        baseTimeout = getConfigParameter("base.timeout");
+        step_logger_enable = getConfigParameter("base.timeout");
     }
 
     public static String getConfigParameter(String propertyName){
