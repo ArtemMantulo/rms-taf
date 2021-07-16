@@ -1,7 +1,6 @@
 package ui.pages.home;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import ui.models.UserRole;
 import ui.pages.base.BasePage;
@@ -13,38 +12,36 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class HomePage extends BasePage {
 
-    private final SelenideElement welcomeMessage =
-            $x("//h2[@class='MuiTypography-root UserGreetingText MuiTypography-h1']");
-    private final SelenideElement productsTab = $x("//a[text()='Products']");
-    private final SelenideElement proposalsTab = $x("//a[text()='Proposals']");
-    private final SelenideElement importXlsLink = $x("//button[@id='importXLSText']");
-    private final SelenideElement importXlsButton = $x("//button[@id='importXLSButton']");
-    private final SelenideElement importXlsPopup = $x("//input[@class='dzu-input']");
-    private final SelenideElement successUploadedPopup =
-            $x("//div[@class='NotificationContent']/div[@class='TitleAndButton']");
+    private final static String PRODUCTS_TAB = "//a[text()='Products']";
+    private final static String PROPOSALS_TAB = "//a[text()='Proposals']";
+    private final static String IMPORT_XLS_LINK_ID = "importXLSText";
+    private final static String IMPORT_XLS_BUTTON = "//button[@id='importXLSButton']";
+    private final static String IMPORT_XLS_POPUP = "//input[@class='dzu-input']";
+    private final static String SUCCESS_UPOAD_POPUP = "//div[@class='NotificationContent']/div[@class='TitleAndButton']";
+    private final static String WELCOME_MESSAGE = "//h2[@class='MuiTypography-root UserGreetingText MuiTypography-h1']";
 
     @Step("Check welcome message for role: {userRole}")
     public void checkWelcomeMessage(UserRole userRole) {
-        welcomeMessage.shouldHave(Condition.text("Hey, " + userRole.getRole()));
+        $x(WELCOME_MESSAGE).shouldHave(Condition.text("Hey, " + userRole.getRole()));
     }
 
     @Step("Open Products Tab")
     public ProductsPage goToProductsPage() {
-        productsTab.click();
+        $x(PRODUCTS_TAB).click();
         return new ProductsPage();
     }
 
     @Step("Open Proposals Tab")
     public ProposalsPage goToProposalsPage() {
-        productsTab.click();
+        $x(PRODUCTS_TAB).click();
         return new ProposalsPage();
     }
 
     @Step("Upload file proposal")
     public HomePage uploadXls(String filePath) {
-        importXlsButton.click();
+        $id(IMPORT_XLS_BUTTON).click();
         File file = new File(filePath);
-        $(importXlsPopup).uploadFile(file);
+        $(IMPORT_XLS_POPUP).uploadFile(file);
         return this;
     }
 
@@ -52,13 +49,12 @@ public class HomePage extends BasePage {
     public void checkFileUploadPopup(String expectedCondition) {
         switch (expectedCondition) {
             case "Success":
-                $(successUploadedPopup).shouldHave(Condition.text("Success"));
+                $(SUCCESS_UPOAD_POPUP).shouldHave(Condition.text("Success"));
                 break;
             case "Failed":
-                $(successUploadedPopup).shouldBe(Condition.visible).
+                $(SUCCESS_UPOAD_POPUP).shouldBe(Condition.visible).
                         shouldHave(Condition.text("Oops! Something went wrong"));
                 break;
         }
     }
-
 }
