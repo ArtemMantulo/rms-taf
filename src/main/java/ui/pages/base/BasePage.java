@@ -13,8 +13,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
-    private final static String AUTH_WIDGET_POPUP = "//";
-
     /**
      * Method to navigate specific url
      */
@@ -31,13 +29,6 @@ public class BasePage {
             element.sendKeys(Keys.BACK_SPACE);
         }
         element.setValue(value);
-    }
-
-    /**
-     * Wait for auth widget is visible
-     */
-    public void checkIsDisplayedAuthWidget() {
-        $x(AUTH_WIDGET_POPUP).shouldBe(Condition.visible);
     }
 
     /**
