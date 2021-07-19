@@ -34,13 +34,13 @@ public class HomePage extends BasePage {
         return new ProductsPage();
     }
 
-    @Step("STEP: Open Proposals Tab")
+    @Step("Open Proposals Tab")
     public ProposalsPage goToProposalsPage() {
         productsTab.click();
         return new ProposalsPage();
     }
 
-    @Step("STEP: Upload file proposal")
+    @Step("Upload file proposal")
     public HomePage uploadXls(String filePath) {
         importXlsButton.click();
         File file = new File(filePath);
@@ -48,7 +48,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    @Step("STEP: Verify popup when file proposal is uploaded")
+    @Step("Verify popup when file proposal is uploaded")
     public void checkFileUploadPopup(String expectedCondition) {
         switch (expectedCondition) {
             case "Success":

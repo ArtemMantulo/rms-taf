@@ -54,7 +54,7 @@ public class StepListener implements StepLifecycleListener {
      */
     private boolean validateStep(StepResult result) {
         var name = result.getName();
-        boolean isValid = !name.contains("HELPER");
+        boolean isValid = !name.contains("Logger");
         if (isValid && name.contains("API STEP:") && result.getParameters().size() > 0) {
             isValid = isValid && !String.valueOf(result.getParameters().get(0).getValue()).equals("null");
         }
