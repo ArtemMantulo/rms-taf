@@ -6,7 +6,6 @@ import lombok.extern.log4j.Log4j;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
-import ui.BaseSetting;
 import ui.common.Config;
 import ui.listeners.TestListener;
 
@@ -15,8 +14,9 @@ import java.io.File;
 
 import java.util.Objects;
 
-
-public class BaseTest extends BaseSetting {
+@Log4j
+@Listeners({TestListener.class})
+public class BaseTest {
 
     @AfterMethod
     public void tearDown() {
