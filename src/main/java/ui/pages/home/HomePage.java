@@ -23,12 +23,12 @@ public class HomePage extends BasePage {
     private final SelenideElement successUploadedPopup =
             $x("//div[@class='NotificationContent']/div[@class='TitleAndButton']");
 
-    @Step("STEP: Check welcome message for role: {userRole}")
+    @Step("Check welcome message for role: {userRole}")
     public void checkWelcomeMessage(UserRole userRole) {
         welcomeMessage.shouldHave(Condition.text("Hey, " + userRole.getRole()));
     }
 
-    @Step("STEP: Open Products Tab")
+    @Step("Open Products Tab")
     public ProductsPage goToProductsPage() {
         productsTab.click();
         return new ProductsPage();

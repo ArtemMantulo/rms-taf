@@ -5,12 +5,13 @@ import ui.pages.login.LoginPage;
 
 import static com.codeborne.selenide.AuthenticationType.BASIC;
 import static com.codeborne.selenide.Selenide.open;
+import static enums.WebEnvProperties.*;
 
 public class UserActions {
 
     @Step("Open main website page")
     public static LoginPage openMainPage() {
-        open(Config.properties.getPublicSiteUrl(), BASIC, Config.properties.getUser(), Config.properties.getPassword());
+        open(ENV_URL.getValue(), BASIC, MAIN_USER.getValue(),  MAIN_USER_PASSWORD.getValue());
         return new LoginPage();
     }
 

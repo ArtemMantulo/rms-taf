@@ -26,7 +26,7 @@ public class ConfigProvider {
         user = getConfigParameter("main.user");
         password = getConfigParameter("main.user.password");
         baseTimeout = getConfigParameter("base.timeout");
-        step_logger_enable = getConfigParameter("base.timeout");
+        step_logger_enable = getConfigParameter("step.logger.enable");
     }
 
     public static String getConfigParameter(String propertyName){

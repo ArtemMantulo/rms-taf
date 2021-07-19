@@ -30,22 +30,17 @@ public class StepListener implements StepLifecycleListener {
     @Override
     public synchronized void afterStepStart(StepResult stepResult) {
         var id = Thread.currentThread().getId();
-        var name = stepResult.getName();
-        if (name.contains("STEP:")) {
             logMap.put(id, new StepLogger(Boolean.parseBoolean(getConfigParameter("step.logger.enable")), id));
-        }
-
     }
 
     @Override
     public synchronized void beforeStepStop(StepResult result) {
         var name = result.getName();
-        if (name.contains("STEP:")) {
             logMap.get(Thread.currentThread().getId()).stop();
             if (validateStep(result))
                 log.info(String.format("%s\t- [%s]", name, result.getStatus().name()));
         }
-    }
+
 
     /**
      * Can be used to check if step logging required.

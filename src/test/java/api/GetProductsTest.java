@@ -7,7 +7,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
-import ui.BaseSettings;
 import ui.common.Config;
 
 
@@ -15,7 +14,7 @@ import static framework.Helpers.validateResponse;
 import static framework.SchemaTemplates.SCHEMA_TEMPLATE_GET_PRODUCTS;
 import static io.restassured.RestAssured.given;
 
-public class GetProductsTest extends BaseSettings {
+public class GetProductsTest {
 
     public static final String PRODUCTS = "/products";
 

@@ -1,23 +1,34 @@
 package ui.base;
 
 import com.codeborne.selenide.Selenide;
+import helpers.WebPropertiesHelper;
+import lombok.extern.log4j.Log4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
-import ui.BaseSettings;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import ui.common.Config;
+import ui.listeners.TestListener;
 
 
 import java.io.File;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class BaseTest extends BaseSettings {
+@Log4j
+@Listeners({TestListener.class})
+public class BaseTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
 
     @AfterMethod
     public void tearDown() {
         Selenide.closeWebDriver();
+    }
+
+    @BeforeSuite(alwaysRun = true)
+    public void beforeSuite() {
+        WebPropertiesHelper.init();
     }
 
     /**

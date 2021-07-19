@@ -1,12 +1,14 @@
 package utils;
 
 import io.qameta.allure.Allure;
+import lombok.extern.log4j.Log4j;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.String.format;
 
+@Log4j
 public class Logger
 {
     private static final String PATTERN = "[%s] %s";
@@ -17,21 +19,21 @@ public class Logger
     public static void log(String info)
     {
         String logString = format(PATTERN, defaultClassName, info);
-        System.out.println(logString);
+        log.info(logString);
         Allure.step(logString);
     }
 
     public void info(String object)
     {
         String logString = String.format(PATTERN, className, object);
-        System.out.println(logString);
+        log.info(logString);
         Allure.step(logString);
     }
 
     public void info(String object, Object... args)
     {
         String logString = String.format(PATTERN, className, format(object, args));
-        System.out.println(logString);
+        log.info(logString);
         Allure.step(logString);
     }
 
