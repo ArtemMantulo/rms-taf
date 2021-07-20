@@ -1,21 +1,23 @@
 package ui.base;
 
 import com.codeborne.selenide.Selenide;
+import core.WebDriverManager;
 import helpers.WebPropertiesHelper;
 import lombok.extern.log4j.Log4j;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Listeners;
-import ui.common.Config;
+import org.testng.annotations.*;
 import ui.listeners.TestListener;
-
+import utils.Logger;
 
 import java.io.File;
 import java.util.Objects;
 
-@Log4j
+import static core.WebDriverManager.*;
+
+
 @Listeners({TestListener.class})
 public class BaseTest {
+
+    static Logger logger = Logger.get(BaseTest.class);
 
     @AfterMethod
     public void tearDown() {
@@ -24,20 +26,42 @@ public class BaseTest {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
+        deleteReportFolder();
         WebPropertiesHelper.init();
+        WebDriverManager.setupDriver();
+    }
+
+    @AfterTest
+    public static void clearBrowserCookiesAndStorage() {
+        if (CLEAR_COOKIES) {
+            try {
+                Selenide.clearBrowserCookies();
+                Selenide.clearBrowserLocalStorage();
+                Selenide.executeJavaScript("window.sessionStorage.clear()");
+            } catch (Exception e) {
+                logger.info("SESSION_STORAGE/COOKIES has not been cleared!!!!!");
+            }
+        }
+    }
+
+    @AfterSuite
+    public static void closeBrowser() {
+        if (!HOLD_BROWSER_OPEN) {
+            Selenide.closeWebDriver();
+        }
     }
 
     /**
      * A static initialization block in order to clean the folders with reports and screenshots before build starts
      */
-    static {
+    public void deleteReportFolder() {
         File allureResults = new File("target/allure-results");
         if(allureResults.isDirectory()) {
             for (File item : Objects.requireNonNull(allureResults.listFiles())) {
                 item.delete();
             }
         }
-        if(Config.CLEAR_REPORTS_DIR) {
+        if(CLEAR_REPORTS_DIR) {
             File reports = new File("build/reports/tests/");
             if (reports.isDirectory()) {
                 for (File item : Objects.requireNonNull(reports.listFiles())) {

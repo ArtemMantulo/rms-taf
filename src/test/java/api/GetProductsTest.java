@@ -7,9 +7,8 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
-import ui.common.Config;
 
-
+import static enums.WebEnvProperties.*;
 import static framework.Helpers.validateResponse;
 import static framework.SchemaTemplates.SCHEMA_TEMPLATE_GET_PRODUCTS;
 import static io.restassured.RestAssured.given;
@@ -21,11 +20,11 @@ public class GetProductsTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Get list of available products", groups = {"Smoke", "api"})
     public void getProductsTest() {
-        RestAssured.baseURI = Config.properties.getPublicSiteUrl() + "/api";
+        RestAssured.baseURI = ENV_URL.getValue() + "/api";
 
         ValidatableResponse response =
                 given().auth()
-                        .basic(Config.properties.getUser(), Config.properties.getPassword())
+                        .basic(MAIN_USER.getName(), MAIN_USER_PASSWORD.getName())
                         .queryParam("supplierName", "all")
                         .queryParam("status", "all")
                         .queryParam("nonCompletedTasks", "all")

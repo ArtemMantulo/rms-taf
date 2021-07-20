@@ -4,6 +4,8 @@ public enum EnvProperties {
     TESTRAIL_ENABLE_FLAG(""),
     TESTRAIL_RUN_ID(""),
     BUILD_NUMBER(""),
+    CONTAINER_ENGINE("true"),
+    CONTAINER_URL(""),
     SERVICES_ENV(""),
     WEB_ENV(""),
     TEST_ENV("qa");

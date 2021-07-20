@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ui.base.BaseTest;
 import ui.common.UserActions;
 import ui.models.UserRole;
+import utils.Logger;
 
 @Feature("User login")
 public class UserLoginTest extends BaseTest {

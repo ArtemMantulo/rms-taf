@@ -7,24 +7,21 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Issue;
 import io.qameta.allure.TmsLink;
 import io.qameta.allure.TmsLinks;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.SkipException;
 
 import javax.annotation.Nullable;
-import java.awt.*;
-import java.io.*;
+import java.io.FileReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Objects;
+import java.util.Random;
 
 import static enums.EnvProperties.*;
 import static java.util.Objects.nonNull;
@@ -32,17 +29,6 @@ import static java.util.Objects.nonNull;
 public class Utils {
     private static Logger logger = Logger.get(Utils.class);
     public static final String DEFAULT_ENV = "qa";
-
-    private static final String KILL = "taskkill /F /IM \"%s\" /T";
-    private static final String KILL_REMOTE_PROCESS = "taskkill /s %s -u %s -p %s /F /IM \"%s\" /T";
-    private static final String TASKLIST = "tasklist";
-    private static final String REMOTE_PROCESS = System.getProperty("user.dir") + "\\..\\operators\\src\\main\\java\\tools\\Pslist.exe \\\\%s -u %s -p %s -e \"%s\"";
-    private static final int MAX_CNC_ALIVE_TIME = 7200000;
-    private static final String CNC_ID_AUTOMATION_NAME = "AUTO-";
-    private static final int DEFAULT_RETRY_ACTION_INTERVAL_MILLIS = 1000;
-    private static final int DEFAULT_NUMBER_OF_RETRIES = 3;
-    static List<Class> m_classes = new ArrayList<>();
-
 
     public static <T> T parseJson(String json, Class<T> clazz) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -77,7 +63,6 @@ public class Utils {
         }
     }
 
-
     public static void waitForThreadsToFinish(Thread... threads) {
         Arrays.stream(threads).forEach(thread -> {
             try {
@@ -87,25 +72,6 @@ public class Utils {
             }
         });
     }
-
-    public static boolean isSessionAlive(WebDriver driver) {
-        try {
-            driver.getPageSource();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static void deleteDirectory(String path) {
-        logger.info("Trying to delete " + path);
-        try {
-            FileUtils.deleteDirectory(new File(path));
-        } catch (IOException e) {
-            logger.info("Failed to delete " + path + " with error: " + e.getMessage());
-        }
-    }
-
 
     public static String getPropertyEnv() {
         String env = nonNull(TEST_ENV.getValue()) ? TEST_ENV.getValue() : TEST_ENV.getName();
@@ -171,90 +137,9 @@ public class Utils {
         }
     }
 
-    public static void runCmdCommand(String processPath) {
-        try {
-            Runtime rt = Runtime.getRuntime();
-            logger.info("Running command " + processPath + " - Waiting for result");
-            rt.exec("cmd.exe /c" + processPath);
-            logger.info("Command " + processPath + " - Completed Successfully");
-        } catch (Exception e) {
-            logger.info("Failed to run command.\n" +
-                    "Command: " + processPath + "\n" +
-                    e.getMessage());
-        }
-    }
-
-    public static void killProcess(String serviceName) {
-        try {
-            Runtime.getRuntime().exec(String.format(KILL, serviceName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String convertDtoMapToStringWithReplaceParameter(Map<String, Object> dtoMap, String from, String to) {
-        return dtoMap.entrySet().stream().map(r -> r.getKey() + from + r.getValue()).collect(Collectors.joining(to));
-    }
-
-    public static String convertObjectToString(Object object) {
-        try {
-            Gson gson = new Gson();
-            String json = gson.toJson(object);
-            return json;
-        } catch (Exception e) {
-            logger.info("Could not convert object to map " + e.getMessage());
-            return null;
-        }
-    }
-
-    public static boolean isProcessRunning(String serviceName) {
-        Process p = null;
-        try {
-            p = Runtime.getRuntime().exec(TASKLIST);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    p.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.contains(serviceName)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static void deleteFile(File file) {
-        if (nonNull(file)) {
-            if (file.delete()) {
-                logger.info("file deleted");
-            } else {
-                logger.info("file is not deleted");
-            }
-        }
-    }
-
-    public static GraphicsDevice getScreenResolution() {
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        return gd;
-    }
-
-    public static int getScreenResolutionWidth() {
-        return getScreenResolution().getDisplayMode().getWidth();
-    }
-
-    public static int getScreenResolutionHeight() {
-        return getScreenResolution().getDisplayMode().getHeight();
-    }
-
     public static Integer getRandomInteger(int max, int min) {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
-    }
-
-    public static Long getTimestampMillis() {
-        return new DateTime().getMillis();
     }
 
     public static String getRandomString(int length) {
@@ -275,10 +160,6 @@ public class Utils {
 
     public static Float getRandomFloat() {
         return new Random().nextFloat();
-    }
-
-    public static Integer get8DigitsInteger() {
-        return getRandomInteger(99999999, 10000000);
     }
 
     public static String decodeBase64(String encodedString) {

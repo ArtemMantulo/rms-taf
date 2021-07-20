@@ -6,8 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 
-import static ui.common.Config.CLEAR_COOKIES;
-import static ui.common.Config.HOLD_BROWSER_OPEN;
+import static core.WebDriverManager.CLEAR_COOKIES;
+import static core.WebDriverManager.HOLD_BROWSER_OPEN;
+
 
 public class CommonActions {
 

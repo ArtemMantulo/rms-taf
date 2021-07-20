@@ -5,22 +5,21 @@ import io.qameta.allure.listener.StepLifecycleListener;
 import io.qameta.allure.model.StepResult;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
-
 import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
 import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
+import ui.base.BaseTest;
 
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static framework.ConfigProvider.getConfigParameter;
-
 @Log4j
 public class StepListener implements StepLifecycleListener {
 
+    static utils.Logger logger = utils.Logger.get(BaseTest.class);
     private Map<Long, StepLogger> logMap          = new HashMap<>();
 
     @SneakyThrows
@@ -28,9 +27,10 @@ public class StepListener implements StepLifecycleListener {
     }
 
     @Override
-    public synchronized void afterStepStart(StepResult stepResult) {
+    public synchronized void afterStepStart(StepResult result) {
+        result.getDescription();
         var id = Thread.currentThread().getId();
-            logMap.put(id, new StepLogger(Boolean.parseBoolean(getConfigParameter("step.logger.enable")), id));
+            logMap.put(id, new StepLogger(true, id));
     }
 
     @Override
@@ -38,9 +38,8 @@ public class StepListener implements StepLifecycleListener {
         var name = result.getName();
             logMap.get(Thread.currentThread().getId()).stop();
             if (validateStep(result))
-                log.info(String.format("%s\t- [%s]", name, result.getStatus().name()));
-        }
-
+                logger.stepInfo(String.format("%s\t- [%s]", name, result.getStatus().name()));
+    }
 
     /**
      * Can be used to check if step logging required.
@@ -54,8 +53,8 @@ public class StepListener implements StepLifecycleListener {
      */
     private boolean validateStep(StepResult result) {
         var name = result.getName();
-        boolean isValid = !name.contains("Logger");
-        if (isValid && name.contains("API STEP:") && result.getParameters().size() > 0) {
+        boolean isValid = !name.contains("Logger") && !name.contains("BaseTest");
+        if (isValid && result.getParameters().size() > 0) {
             isValid = isValid && !String.valueOf(result.getParameters().get(0).getValue()).equals("null");
         }
         return isValid;
