@@ -28,7 +28,6 @@ public class StepListener implements StepLifecycleListener {
 
     @Override
     public synchronized void afterStepStart(StepResult result) {
-        result.getDescription();
         var id = Thread.currentThread().getId();
             logMap.put(id, new StepLogger(true, id));
     }
@@ -53,7 +52,7 @@ public class StepListener implements StepLifecycleListener {
      */
     private boolean validateStep(StepResult result) {
         var name = result.getName();
-        boolean isValid = !name.contains("Logger") && !name.contains("BaseTest");
+        boolean isValid = !name.contains("Logger") && !name.contains("BaseTest") && !name.contains("Selenide");
         if (isValid && result.getParameters().size() > 0) {
             isValid = isValid && !String.valueOf(result.getParameters().get(0).getValue()).equals("null");
         }

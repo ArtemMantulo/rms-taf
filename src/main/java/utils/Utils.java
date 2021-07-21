@@ -8,12 +8,14 @@ import io.qameta.allure.Issue;
 import io.qameta.allure.TmsLink;
 import io.qameta.allure.TmsLinks;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.testng.ITestResult;
 import org.testng.SkipException;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.io.FileReader;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -179,4 +181,18 @@ public class Utils {
         return sourceFilePath;
     }
 
+    public static void createDirectory(String folderName)
+    {
+        File theDir = new File(folderName);
+        if (!theDir.exists()) {
+            Logger.log("creating directory: " + theDir.getName());
+
+            try {
+                if (theDir.mkdirs())
+                    Logger.log(folderName + " folder created");
+            } catch (Exception e) {
+                Logger.log("Failed creating directory: " + theDir.getName() + " with Error: " + e.getMessage());
+            }
+        }
+    }
 }

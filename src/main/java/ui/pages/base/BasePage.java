@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
+import utils.Logger;
 
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
+    public Logger logger =  Logger.get("Logger");
     private final SelenideElement authWidget = $x("//");
 
     /**

@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.Objects;
 
 import static core.WebDriverManager.*;
+import static enums.WebEnvProperties.STEP_LOGGER_ENABLE;
 
 
 @Listeners({TestListener.class})
@@ -29,6 +30,7 @@ public class BaseTest {
         deleteReportFolder();
         WebPropertiesHelper.init();
         WebDriverManager.setupDriver();
+        addWebDriverEventListener(Boolean.parseBoolean(STEP_LOGGER_ENABLE.getValue()));
     }
 
     @AfterTest

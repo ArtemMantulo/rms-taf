@@ -1,18 +1,24 @@
 package core;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import utils.Logger;
 
 import java.net.URI;
+import java.util.Arrays;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static enums.EnvProperties.CONTAINER_ENGINE;
 import static enums.WebEnvProperties.BROWSER;
 import static enums.WebEnvProperties.BROWSER_VERSION;
+import static java.lang.String.format;
 
 
 public class WebDriverManager {
@@ -45,5 +51,27 @@ public class WebDriverManager {
             Configuration.reportsFolder = "builds/reports/tests";
             Configuration.timeout = 5000;
         }
+    }
+
+    public static void addWebDriverEventListener() {
+        Logger logger = Logger.get("Selenide Listener");
+        WebDriverRunner.addListener(new AbstractWebDriverEventListener() {
+
+            public void beforeClickOn(WebElement element, WebDriver driver) {
+                logger.info(format("Clicking on {%s}", $(element).toString()));
+            }
+
+            public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+                if (keysToSend == null) logger.info(format("Clear input in {%s}.", $(element).toString()));
+                else logger.info(format("Input text {%s} in {%s}.", Arrays.toString(keysToSend), $(element).toString()));
+            }
+        });
+    }
+
+    public static void addWebDriverEventListener(Boolean isEnabled) {
+        if (isEnabled) {
+            addWebDriverEventListener();
+        }
+
     }
 }

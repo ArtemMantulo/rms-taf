@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import ui.models.UserRole;
 import ui.pages.base.BasePage;
 import ui.pages.home.HomePage;
+import utils.Logger;
 
 import static com.codeborne.selenide.Selenide.$x;
 

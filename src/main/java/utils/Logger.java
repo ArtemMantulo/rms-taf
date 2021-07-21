@@ -10,30 +10,34 @@ import static java.lang.String.format;
 
 @Log4j
 public class Logger {
-    private static final String PATTERN = "[%s] %s";
+    private static final String PATTERN = "[Thread - %s] [%s] %s";
     private String className = "";
     private static String defaultClassName = "Logger";
     private final String CLASS_NAME_SEPARATOR = ".";
 
     public static void log(String info) {
-        String logString = format(PATTERN, defaultClassName, info);
+        var id = Thread.currentThread().getId();
+        String logString = format(PATTERN, id, defaultClassName, info);
         log.info(logString);
         Allure.step(logString);
     }
 
     public void info(String object) {
-        String logString = String.format(PATTERN, className, object);
+        var id = Thread.currentThread().getId();
+        String logString = String.format(PATTERN, id, className, object);
         log.info(logString);
         Allure.step(logString);
     }
 
     public void stepInfo(String object) {
+        var id = Thread.currentThread().getId();
         className = "STEP:";
-        String logString = String.format(PATTERN, className, object);
+        String logString = String.format(PATTERN,id, className, object);
         log.info(logString);
     }
     public void info(String object, Object... args) {
-        String logString = String.format(PATTERN, className, format(object, args));
+        var id = Thread.currentThread().getId();
+        String logString = String.format(PATTERN,id, className, format(object, args));
         log.info(logString);
         Allure.step(logString);
     }
