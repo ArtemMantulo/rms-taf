@@ -17,6 +17,6 @@ public class UserLoginTest extends BaseTest {
         UserActions.openMainPage()
                 .selectUserRole(UserRole.BUYER)
                 .login()
-                .checkWelcomeMessage(UserRole.BUYER);
+                .checkWelcomeMessage(UserRole.CATEGORY_ASSISTANT);
     }
 }

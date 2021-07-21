@@ -16,7 +16,7 @@ import static enums.WebEnvProperties.STEP_LOGGER_ENABLE;
 
 
 @Listeners({TestListener.class})
-public class BaseTest {
+public class BaseTest extends AbstractBaseTest {
 
     static Logger logger = Logger.get(BaseTest.class);
 
