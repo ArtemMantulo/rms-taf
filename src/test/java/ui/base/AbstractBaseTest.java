@@ -5,7 +5,7 @@ import org.testng.IConfigureCallBack;
 import org.testng.ITestResult;
 import utils.Logger;
 import utils.RetryRunner;
-import utils.RobotActions;
+import utils.Utils;
 
 import static java.util.Objects.isNull;
 import static utils.Utils.createDirectory;
@@ -19,7 +19,7 @@ public abstract class AbstractBaseTest implements IConfigurable {
             if (attempt != 0) {
                 Logger.log("Rerunning configuration method " + testResult.getMethod().getMethodName());
                 createDirectory(System.getProperty("user.dir") + "/build/reports/tests");
-                RobotActions.grabScreenshot("SetUpFailed_" + testResult.getMethod().getMethodName());
+                Utils.grabScreenshot("SetUpFailed_" + testResult.getMethod().getMethodName());
             }
             if (isNull(testResult.getThrowable())) {
                 break;

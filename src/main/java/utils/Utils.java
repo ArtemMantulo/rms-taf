@@ -15,8 +15,12 @@ import org.testng.ITestResult;
 import org.testng.SkipException;
 
 import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -179,6 +183,22 @@ public class Utils {
             logger.info("Wrong URI syntax: " + e.getMessage());
         }
         return sourceFilePath;
+    }
+
+    public static void grabScreenshot(String name)
+    {
+        try {
+            Robot robot = new Robot();
+            String format = "png";
+
+            String fileName = System.getProperty("user.dir") + "/build/reports/tests/" + name + System.currentTimeMillis() + ".png";
+            Rectangle captureRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+            BufferedImage screenFullImage = robot.createScreenCapture(captureRect);
+            ImageIO.write(screenFullImage, format, new File(fileName));
+            Logger.log("Screenshot saved at: " + fileName);
+        } catch (AWTException | IOException ex) {
+            System.err.println(ex);
+        }
     }
 
     public static void createDirectory(String folderName)

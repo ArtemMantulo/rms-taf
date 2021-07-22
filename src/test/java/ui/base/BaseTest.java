@@ -3,7 +3,6 @@ package ui.base;
 import com.codeborne.selenide.Selenide;
 import core.WebDriverManager;
 import helpers.WebPropertiesHelper;
-import lombok.extern.log4j.Log4j;
 import org.testng.annotations.*;
 import ui.listeners.TestListener;
 import utils.Logger;
