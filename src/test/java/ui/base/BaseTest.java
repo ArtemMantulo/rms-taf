@@ -77,5 +77,4 @@ public class BaseTest extends AbstractBaseTest {
             }
         }
     }
-
 }
