@@ -1,20 +1,20 @@
 package ui.pages.home;
 
-import com.codeborne.selenide.SelenideElement;
 import ui.pages.base.BasePage;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ProductsPage extends BasePage {
-    private final SelenideElement productsResults = $x("//span[@class='results']");
-    private final SelenideElement supplierFilter = $x("//a[text()='Products']");
-    private final SelenideElement statusFilter = $x("//a[text()='Products']");
-    private final SelenideElement tasksFilter = $x("//a[text()='Products']");
-    private final SelenideElement productsGrid = $x("//div[@class='MuiContainer-root MuiContainer-maxWidthLg']");
-    private final SelenideElement productInTheGrid = $x("//class='jss44'");
+    private final static String PRODUCTS_RESULTS = "//span[@class='results']";
+    private final static String SUPPLIER_FILTER_ID = "Supplier";
+    private final static String STATUS_FILTER_ID = "Status";
+    private final static String TASK_FILTER_ID = "Task";
+    private final static String PRODUCTS_GRID = "//div[@class='MuiContainer-root MuiContainer-maxWidthLg']";
+    private final static String PRODUCTS_IN_THE_GRID = "//class='jss44'";
+
 
     public String verifyProductsResults() {
-        return productsResults.getValue();
+        return $x(PRODUCTS_RESULTS).getValue();
     }
 
     public ProductsPage filterProductsBySupplier() {
