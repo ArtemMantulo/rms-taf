@@ -50,13 +50,17 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>core.AnnotationTransformer</value>
+                        </property>
+                    </properties>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <systemProperties>
                         <property>
-                            <name>listener</name>
-                            <value>core.AnnotationTransformer</value>А
                             <name>allure.results.directory</name>
                             <value>${basedir}/target/allure-results</value>
                         </property>
