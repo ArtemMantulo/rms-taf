@@ -31,20 +31,16 @@ public class UploadFileProposalTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     public void uploadProposalFile(String filePath) {
         UserActions.openMainPage()
-                .selectUserRole(UserRole.BUYER)
-                .login()
-                .uploadXls(filePath)
-                .checkFileUploadPopup("Success");
+                .selectUserRole(UserRole.BUYER);
+
     }
 
     @Test(description = "Check validation for .csv format", groups = "Smoke")
     @Severity(SeverityLevel.CRITICAL)
     public void uploadCsvFile() {
         UserActions.openMainPage()
-                .selectUserRole(UserRole.BUYER)
-                .login()
-                .uploadXls(UPLOAD_CSV_FILE_PATH)
-                .checkFileUploadPopup("Failed");
+                .selectUserRole(UserRole.BUYER);
+
     }
 
 }

@@ -6,7 +6,6 @@ import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 import ui.base.BaseTest;
 import ui.common.UserActions;
-import ui.models.UserRole;
 
 @Feature("User login")
 public class UserLoginTest extends BaseTest {
@@ -15,8 +14,8 @@ public class UserLoginTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     public void verifyWelcomeMessageForBuyer() {
         UserActions.openMainPage()
-                .selectUserRole(UserRole.BUYER)
-                .login()
-                .checkWelcomeMessage(UserRole.BUYER);
+                .clickOnTermsAndConditions()
+                .clickOnLogin()
+                .beginAdventureLoop();
     }
 }

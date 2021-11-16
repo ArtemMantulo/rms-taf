@@ -7,13 +7,14 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.testng.annotations.Test;
+import ui.base.BaseTest;
 
 import static enums.WebEnvProperties.*;
 import static framework.Helpers.validateResponse;
 import static framework.SchemaTemplates.SCHEMA_TEMPLATE_GET_PRODUCTS;
 import static io.restassured.RestAssured.given;
 
-public class GetProductsTest {
+public class GetProductsTest extends BaseTest {
 
     public static final String PRODUCTS = "/products";
 
@@ -31,7 +32,7 @@ public class GetProductsTest {
                         .when()
                         .get(PRODUCTS)
                         .then()
-                        .assertThat().contentType(ContentType.JSON);
+                        .assertThat().contentType(ContentType.HTML);
         validateResponse(response, SCHEMA_TEMPLATE_GET_PRODUCTS);
 
         int log = response.log().body().extract().statusCode();
