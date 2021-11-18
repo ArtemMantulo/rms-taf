@@ -6,7 +6,6 @@ import io.qameta.allure.Step;
 import ui.models.UserRole;
 import ui.pages.base.BasePage;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +17,19 @@ import static java.lang.String.format;
 
 public class LoginPage extends BasePage {
 
+    class Resultat {
+
+        String result;
+        String coinNumber;
+
+        public Resultat(String result,String coinNumber) {
+            this.result = result;
+            this.coinNumber = coinNumber;
+        }
+    }
+
+    private Float coinsNumber;
+    private List<Double> coinNumberCulculated;
     private final static String TERM_AND_CONDITIONS = "//i";
     private final static String LOGIN = "//span[text()='LOGIN']";
     private final static String WAX_WALLET_BUTTON = "//span[text()='WAX Cloud Wallet']";
@@ -29,7 +41,8 @@ public class LoginPage extends BasePage {
     private final static String CLOSE_BUTTON = "//span[text()='close']";
     private final static String STAKING_BUTTON = "//div[@class = 'one-slot-number']//span[text()='%s']//parent::div//following-sibling::div//*[text()='STAKING']";
     private final static String HERO_IS_RESTING = "//div[@class = 'one-slot-number']//span[text()='%s']//parent::div//following-sibling::div//*[text()='hero is resting']";
-    private final static String REWARD_NUMBER = "//div[@class = 'count-up']//span";
+    private final static String REWARD_NUMBER = "//div[@class = 'header-list-one bam-header']//span";
+
 
     //div[@class = "one-slot-number"]//span[text()="%s"]//parent::div//following-sibling::div//span[text()='SEND to adventure']
     //div[@class = "one-slot-number"]//span[text()="%s"]//parent::div//following-sibling::div//*[text()='hero is resting']
@@ -66,18 +79,24 @@ public class LoginPage extends BasePage {
 
     @Step("Click login button")
     public LoginPage clickOnLogin() {
+        sleep(3000);
         $x(LOGIN).shouldBe(Condition.visible).click();
+        sleep(3000);
         $x(WAX_WALLET_BUTTON).shouldBe(Condition.visible).click();
+        sleep(3000);
         String oldWindow = WebDriverRunner.getWebDriver().getWindowHandle();
         sleep(3000);
         Set<String> newWindows = WebDriverRunner.getWebDriver().getWindowHandles();
+        sleep(10000);
         newWindows.size();
 
         List<String> a = newWindows.stream().collect(Collectors.toList());
         String newWindow = a.get(1);
         WebDriverRunner.getWebDriver().switchTo().window(newWindow);
+        sleep(2000);
         $x(LOGIN_INPUT).shouldBe(Condition.visible).sendKeys("Artemmantulo@gmail.com");
         $x(PASSWORD_INPUT).shouldBe(Condition.visible).sendKeys("Newpassword199321!");
+        sleep(10000);
         $x(LOGIN_BUTTON).shouldBe(Condition.visible).click();
         WebDriverRunner.getWebDriver().switchTo().window(oldWindow);
         sleep(2000);
@@ -89,16 +108,30 @@ public class LoginPage extends BasePage {
     @Step("Click login button")
     public LoginPage beginAdvanture(int slotNumber) {
         for (int i = 1; i <= 10000; i++) {
-            String result = sendToAdventureButtonCheckFinal(slotNumber);
-            if (result.equals("Need to wait")) {
-                sleep(100000);
-            } else if (result.equals("Clicked!")) {
+            String coinNumbers  = $x(REWARD_NUMBER).getText().replace(" BAM", "");
+            coinsNumber = Float.parseFloat(coinNumbers);
+             Resultat result = sendToAdventureButtonCheckFinal(slotNumber);
+            if (result.result.equals("Need to wait")) {
+                sleep(60000);
+            } else if (result.result.equals("Clicked!")) {
                 sleep(3000);
+                //System.out.println(result.coinNumber);
+                Float coinNumbersAfterClick  = Float.parseFloat($x(REWARD_NUMBER).getText().replace(" BAM", ""));
+                Float coinsEarned = coinNumbersAfterClick - coinsNumber;
+                System.out.println("Coins after click: " + coinNumbersAfterClick +"Coins number before click: " + coinNumbers + "Earned coins:" + coinsEarned);
+                coinsNumber = coinNumbersAfterClick;
                 break;
             }
         }
         return this;
     }
+
+//    public void calculatedCoins(String coinNumber) {
+//       double initialReward = Double.parseDouble(coinNumber);
+//       coinNumberCulculated.add(initialReward);
+//       System.out.println(coinNumberCulculated.stream().mapToDouble(i -> i).sum());
+//    }
+
 
  /*   @Step("Click login button")
     public LoginPage beginAdvantureLast(int slotNumber) {
@@ -158,7 +191,7 @@ public class LoginPage extends BasePage {
     }*/
 
     public String closeRewardPopUP() {
-        sleep(3000);
+        sleep(15000);
         String result = null;
         if ($x(CLOSE_BUTTON).isDisplayed()) {
             $x(CLOSE_BUTTON).shouldBe(Condition.visible).click();
@@ -173,7 +206,8 @@ public class LoginPage extends BasePage {
         return result;
     }
 
-    public String sendToAdventureButtonCheckFinal(int slotNumber) {
+    public Resultat sendToAdventureButtonCheckFinal(int slotNumber) {
+        String rewardNumber = null;
         String result = null;
         sleep(3000);
         Boolean isHeroResting = $x(format(HERO_IS_RESTING, slotNumber)).exists();
@@ -184,8 +218,12 @@ public class LoginPage extends BasePage {
             sleep(3000);
             $x(format(SEND_TO_ADVENTURE, slotNumber)).shouldBe(Condition.visible).click();
             sleep(6000);
-            //String rewardNumber =  $x(REWARD_NUMBER).shouldBe(Condition.visible).getText();
-            System.out.println("Checked: Clicked slot " + slotNumber + new Date());
+            if ($x(CLOSE_BUTTON).exists()) {
+                sleep(6000);
+                //rewardNumber = $x(REWARD_NUMBER).shouldBe(Condition.visible).getText();
+            } else {
+            }
+            System.out.println("Checked: Clicked slot " + slotNumber + rewardNumber + new Date());
             closeRewardPopUP();
             if ($x(format(SEND_TO_ADVENTURE, slotNumber)).exists())
             {
@@ -194,13 +232,13 @@ public class LoginPage extends BasePage {
                 result = "Clicked!";
             }
         }
-        return result;
+        return new Resultat(result, rewardNumber);
     }
 
     @Step("Click login button")
     public LoginPage beginAdventureLoop() {
         for (int i = 1; i <= 10000; i++) {
-           beginAdvanture(1);
+          beginAdvanture(1);
            beginAdvanture(2);
            beginAdvanture(3);
            beginAdvanture(4);

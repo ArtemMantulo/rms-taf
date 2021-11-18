@@ -49,7 +49,7 @@ public class WebDriverManager {
             Configuration.browserSize = "1920x1080";
             Configuration.holdBrowserOpen = HOLD_BROWSER_OPEN;
             Configuration.reportsFolder = "builds/reports/tests";
-            Configuration.timeout = 5000;
+            Configuration.timeout = 10000;
         }
     }
 
