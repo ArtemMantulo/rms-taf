@@ -17,10 +17,22 @@ pipeline {
     stage('Run tests') {
       steps {
         sh 'mvn test -Dtest=NewTests'
+        office365ConnectorSend (
+        status: "Pipeline Status",
+        webhookUrl: "${MSTEAMS_HOOK}",
+        color: '00ff00',
+        message: "Test Successful: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}<br>Pipeline duration: ${currentBuild.durationString}"
+  )
       }
       
       post {
         always {
+          
+          steps {
+                office365ConnectorSend webhookUrl: "${URL_WEBHOOK}",
+                message: 'Code is deployed',
+                status: 'Success'            
+            }
           
           publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
           allure([
