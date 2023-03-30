@@ -8,9 +8,15 @@ pipeline {
       }
     }
     
-    stage('Build and run tests') {
+    stage('Build') {
       steps {
-        sh 'mvn clean test -Dtest=NewTests'
+        sh 'mvn clean install'
+      }
+    }
+    
+    stage('Run tests') {
+      steps {
+        sh 'mvn test -Dtest=NewTests'
       }
       
       post {
