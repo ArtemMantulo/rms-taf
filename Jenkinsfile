@@ -29,6 +29,7 @@ pipeline {
         always {
           
           steps {
+            echo "Hello"
                 office365ConnectorSend webhookUrl: "${URL_WEBHOOK}",
                 message: 'Code is deployed',
                 status: 'Success'            
